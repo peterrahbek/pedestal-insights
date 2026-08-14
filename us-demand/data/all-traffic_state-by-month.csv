@@ -1,5 +1,4 @@
 month,state,sessions
-2024-06,Unknown,1078
 2024-06,Alabama,8
 2024-06,Arizona,27
 2024-06,Arkansas,3
@@ -40,6 +39,7 @@ month,state,sessions
 2024-06,South Carolina,118
 2024-06,Tennessee,16
 2024-06,Texas,352
+2024-06,Unknown,1078
 2024-06,Utah,37
 2024-06,Vermont,2
 2024-06,Virginia,808
@@ -47,7 +47,6 @@ month,state,sessions
 2024-06,West Virginia,1
 2024-06,Wisconsin,9
 2024-06,Wyoming,152
-2024-07,Unknown,855
 2024-07,Alabama,6
 2024-07,Arizona,24
 2024-07,Arkansas,4
@@ -90,13 +89,13 @@ month,state,sessions
 2024-07,South Dakota,1
 2024-07,Tennessee,13
 2024-07,Texas,291
+2024-07,Unknown,855
 2024-07,Utah,22
 2024-07,Vermont,4
 2024-07,Virginia,605
 2024-07,Washington,195
 2024-07,Wisconsin,5
 2024-07,Wyoming,115
-2024-08,Unknown,1130
 2024-08,Alabama,13
 2024-08,Alaska,1
 2024-08,Arizona,33
@@ -141,6 +140,7 @@ month,state,sessions
 2024-08,South Dakota,1
 2024-08,Tennessee,29
 2024-08,Texas,309
+2024-08,Unknown,1130
 2024-08,Utah,25
 2024-08,Vermont,3
 2024-08,Virginia,760
@@ -148,7 +148,6 @@ month,state,sessions
 2024-08,West Virginia,1
 2024-08,Wisconsin,17
 2024-08,Wyoming,108
-2024-09,Unknown,818
 2024-09,Alabama,5
 2024-09,Arizona,32
 2024-09,Arkansas,3
@@ -191,13 +190,13 @@ month,state,sessions
 2024-09,South Carolina,39
 2024-09,Tennessee,26
 2024-09,Texas,599
+2024-09,Unknown,818
 2024-09,Utah,16
 2024-09,Vermont,8
 2024-09,Virginia,1223
 2024-09,Washington,505
 2024-09,Wisconsin,14
 2024-09,Wyoming,305
-2024-10,Unknown,397
 2024-10,Alabama,10
 2024-10,Arizona,41
 2024-10,Arkansas,6
@@ -240,6 +239,7 @@ month,state,sessions
 2024-10,South Dakota,2
 2024-10,Tennessee,23
 2024-10,Texas,576
+2024-10,Unknown,397
 2024-10,Utah,16
 2024-10,Vermont,1
 2024-10,Virginia,1136
@@ -247,7 +247,6 @@ month,state,sessions
 2024-10,West Virginia,1
 2024-10,Wisconsin,40
 2024-10,Wyoming,206
-2024-11,Unknown,457
 2024-11,Alabama,16
 2024-11,Alaska,2
 2024-11,Arizona,31
@@ -289,6 +288,7 @@ month,state,sessions
 2024-11,South Carolina,20
 2024-11,Tennessee,24
 2024-11,Texas,635
+2024-11,Unknown,457
 2024-11,Utah,20
 2024-11,Vermont,5
 2024-11,Virginia,1233
@@ -296,7 +296,6 @@ month,state,sessions
 2024-11,West Virginia,3
 2024-11,Wisconsin,15
 2024-11,Wyoming,240
-2024-12,Unknown,658
 2024-12,Alabama,19
 2024-12,Arizona,123
 2024-12,Arkansas,14
@@ -340,6 +339,7 @@ month,state,sessions
 2024-12,South Dakota,1
 2024-12,Tennessee,39
 2024-12,Texas,973
+2024-12,Unknown,658
 2024-12,Utah,48
 2024-12,Vermont,7
 2024-12,Virginia,1853
@@ -347,7 +347,6 @@ month,state,sessions
 2024-12,West Virginia,6
 2024-12,Wisconsin,23
 2024-12,Wyoming,375
-2025-01,Unknown,889
 2025-01,Alabama,5
 2025-01,Alaska,2
 2025-01,Arizona,64
@@ -391,6 +390,7 @@ month,state,sessions
 2025-01,South Dakota,4
 2025-01,Tennessee,15
 2025-01,Texas,289
+2025-01,Unknown,889
 2025-01,Utah,14
 2025-01,Vermont,4
 2025-01,Virginia,848
@@ -398,7 +398,6 @@ month,state,sessions
 2025-01,West Virginia,1
 2025-01,Wisconsin,19
 2025-01,Wyoming,35
-2025-02,Unknown,456
 2025-02,Alabama,9
 2025-02,Alaska,6
 2025-02,Arizona,112
@@ -441,13 +440,13 @@ month,state,sessions
 2025-02,South Carolina,26
 2025-02,Tennessee,17
 2025-02,Texas,230
+2025-02,Unknown,456
 2025-02,Utah,20
 2025-02,Vermont,2
 2025-02,Virginia,954
 2025-02,Washington,151
 2025-02,Wisconsin,16
 2025-02,Wyoming,3
-2025-03,Unknown,351
 2025-03,Alabama,67
 2025-03,Alaska,1
 2025-03,Arizona,89
@@ -492,6 +491,7 @@ month,state,sessions
 2025-03,South Dakota,1
 2025-03,Tennessee,42
 2025-03,Texas,247
+2025-03,Unknown,351
 2025-03,Utah,40
 2025-03,Vermont,3
 2025-03,Virginia,1003
@@ -499,7 +499,6 @@ month,state,sessions
 2025-03,West Virginia,4
 2025-03,Wisconsin,27
 2025-03,Wyoming,1
-2025-04,Unknown,329
 2025-04,Alabama,38
 2025-04,Alaska,2
 2025-04,Arizona,34
@@ -544,13 +543,13 @@ month,state,sessions
 2025-04,South Dakota,3
 2025-04,Tennessee,10
 2025-04,Texas,255
+2025-04,Unknown,329
 2025-04,Utah,24
 2025-04,Vermont,2
 2025-04,Virginia,632
 2025-04,Washington,160
 2025-04,West Virginia,3
 2025-04,Wisconsin,12
-2025-05,Unknown,416
 2025-05,Alabama,84
 2025-05,Alaska,6
 2025-05,Arizona,189
@@ -595,6 +594,7 @@ month,state,sessions
 2025-05,South Dakota,7
 2025-05,Tennessee,120
 2025-05,Texas,750
+2025-05,Unknown,416
 2025-05,Utah,94
 2025-05,Vermont,39
 2025-05,Virginia,1587
@@ -602,7 +602,6 @@ month,state,sessions
 2025-05,West Virginia,13
 2025-05,Wisconsin,89
 2025-05,Wyoming,6
-2025-06,Unknown,263
 2025-06,Alabama,84
 2025-06,Alaska,8
 2025-06,Arizona,131
@@ -647,6 +646,7 @@ month,state,sessions
 2025-06,South Dakota,7
 2025-06,Tennessee,78
 2025-06,Texas,539
+2025-06,Unknown,263
 2025-06,Utah,44
 2025-06,Vermont,16
 2025-06,Virginia,752
@@ -654,7 +654,6 @@ month,state,sessions
 2025-06,West Virginia,11
 2025-06,Wisconsin,50
 2025-06,Wyoming,3
-2025-07,Unknown,237
 2025-07,Alabama,104
 2025-07,Arizona,70
 2025-07,Arkansas,15
@@ -698,6 +697,7 @@ month,state,sessions
 2025-07,South Dakota,2
 2025-07,Tennessee,64
 2025-07,Texas,482
+2025-07,Unknown,237
 2025-07,Utah,38
 2025-07,Vermont,3
 2025-07,Virginia,718
@@ -705,7 +705,6 @@ month,state,sessions
 2025-07,West Virginia,8
 2025-07,Wisconsin,30
 2025-07,Wyoming,1
-2025-08,Unknown,279
 2025-08,Alabama,94
 2025-08,Alaska,1
 2025-08,Arizona,89
@@ -749,13 +748,13 @@ month,state,sessions
 2025-08,South Dakota,4
 2025-08,Tennessee,39
 2025-08,Texas,423
+2025-08,Unknown,279
 2025-08,Utah,32
 2025-08,Vermont,19
 2025-08,Virginia,990
 2025-08,Washington,207
 2025-08,Wisconsin,38
 2025-08,Wyoming,3
-2025-09,Unknown,424
 2025-09,Alabama,40
 2025-09,Alaska,1
 2025-09,Arizona,55
@@ -800,6 +799,7 @@ month,state,sessions
 2025-09,South Dakota,4
 2025-09,Tennessee,21
 2025-09,Texas,495
+2025-09,Unknown,424
 2025-09,Utah,38
 2025-09,Vermont,4
 2025-09,Virginia,727
@@ -807,7 +807,6 @@ month,state,sessions
 2025-09,West Virginia,1
 2025-09,Wisconsin,32
 2025-09,Wyoming,1
-2025-10,Unknown,411
 2025-10,Alabama,83
 2025-10,Alaska,5
 2025-10,Arizona,168
@@ -852,6 +851,7 @@ month,state,sessions
 2025-10,South Dakota,17
 2025-10,Tennessee,134
 2025-10,Texas,1049
+2025-10,Unknown,411
 2025-10,Utah,83
 2025-10,Vermont,13
 2025-10,Virginia,1121
@@ -859,7 +859,6 @@ month,state,sessions
 2025-10,West Virginia,12
 2025-10,Wisconsin,129
 2025-10,Wyoming,7
-2025-11,Unknown,358
 2025-11,Alabama,78
 2025-11,Alaska,11
 2025-11,Arizona,208
@@ -904,6 +903,7 @@ month,state,sessions
 2025-11,South Dakota,7
 2025-11,Tennessee,271
 2025-11,Texas,910
+2025-11,Unknown,358
 2025-11,Utah,77
 2025-11,Vermont,24
 2025-11,Virginia,721
@@ -911,7 +911,6 @@ month,state,sessions
 2025-11,West Virginia,2
 2025-11,Wisconsin,77
 2025-11,Wyoming,3
-2025-12,Unknown,349
 2025-12,Alabama,104
 2025-12,Alaska,9
 2025-12,Arizona,230
@@ -956,6 +955,7 @@ month,state,sessions
 2025-12,South Dakota,3
 2025-12,Tennessee,271
 2025-12,Texas,988
+2025-12,Unknown,349
 2025-12,Utah,121
 2025-12,Vermont,17
 2025-12,Virginia,639
@@ -963,7 +963,6 @@ month,state,sessions
 2025-12,West Virginia,4
 2025-12,Wisconsin,103
 2025-12,Wyoming,3
-2026-01,Unknown,298
 2026-01,Alabama,54
 2026-01,Alaska,5
 2026-01,Arizona,150
@@ -1008,13 +1007,13 @@ month,state,sessions
 2026-01,South Dakota,6
 2026-01,Tennessee,126
 2026-01,Texas,572
+2026-01,Unknown,298
 2026-01,Utah,89
 2026-01,Vermont,12
 2026-01,Virginia,572
 2026-01,Washington,273
 2026-01,West Virginia,2
 2026-01,Wisconsin,55
-2026-02,Unknown,286
 2026-02,Alabama,56
 2026-02,Alaska,11
 2026-02,Arizona,121
@@ -1059,6 +1058,7 @@ month,state,sessions
 2026-02,South Dakota,6
 2026-02,Tennessee,133
 2026-02,Texas,609
+2026-02,Unknown,286
 2026-02,Utah,108
 2026-02,Vermont,7
 2026-02,Virginia,1269
@@ -1066,7 +1066,6 @@ month,state,sessions
 2026-02,West Virginia,6
 2026-02,Wisconsin,43
 2026-02,Wyoming,2
-2026-03,Unknown,862
 2026-03,Alabama,58
 2026-03,Alaska,6
 2026-03,Arizona,156
@@ -1111,6 +1110,7 @@ month,state,sessions
 2026-03,South Dakota,6
 2026-03,Tennessee,154
 2026-03,Texas,650
+2026-03,Unknown,862
 2026-03,Utah,105
 2026-03,Vermont,14
 2026-03,Virginia,790
@@ -1118,7 +1118,6 @@ month,state,sessions
 2026-03,West Virginia,7
 2026-03,Wisconsin,82
 2026-03,Wyoming,3
-2026-04,Unknown,6536
 2026-04,Alabama,39
 2026-04,Alaska,2
 2026-04,Arizona,101
@@ -1163,6 +1162,7 @@ month,state,sessions
 2026-04,South Dakota,2
 2026-04,Tennessee,98
 2026-04,Texas,526
+2026-04,Unknown,6536
 2026-04,Utah,78
 2026-04,Vermont,3
 2026-04,Virginia,541
@@ -1170,7 +1170,6 @@ month,state,sessions
 2026-04,West Virginia,4
 2026-04,Wisconsin,51
 2026-04,Wyoming,4
-2026-05,Unknown,1220
 2026-05,Alabama,52
 2026-05,Alaska,7
 2026-05,Arizona,120
@@ -1215,6 +1214,7 @@ month,state,sessions
 2026-05,South Dakota,12
 2026-05,Tennessee,362
 2026-05,Texas,569
+2026-05,Unknown,1220
 2026-05,Utah,99
 2026-05,Vermont,9
 2026-05,Virginia,716
@@ -1222,23 +1222,22 @@ month,state,sessions
 2026-05,West Virginia,8
 2026-05,Wisconsin,36
 2026-05,Wyoming,1
-2026-06,Unknown,2302
 2026-06,Alabama,55
 2026-06,Alaska,6
 2026-06,Arizona,118
 2026-06,Arkansas,17
-2026-06,California,1584
+2026-06,California,1587
 2026-06,Colorado,193
 2026-06,Connecticut,73
 2026-06,Delaware,22
-2026-06,District of Columbia,76
+2026-06,District of Columbia,77
 2026-06,Florida,313
-2026-06,Georgia,881
+2026-06,Georgia,884
 2026-06,Hawaii,16
 2026-06,Idaho,15
-2026-06,Illinois,281
+2026-06,Illinois,282
 2026-06,Indiana,61
-2026-06,Iowa,870
+2026-06,Iowa,871
 2026-06,Kansas,22
 2026-06,Kentucky,33
 2026-06,Louisiana,48
@@ -1255,22 +1254,75 @@ month,state,sessions
 2026-06,New Hampshire,3
 2026-06,New Jersey,9959
 2026-06,New Mexico,14
-2026-06,New York,1057
-2026-06,North Carolina,432
+2026-06,New York,1059
+2026-06,North Carolina,434
 2026-06,North Dakota,7
-2026-06,Ohio,206
+2026-06,Ohio,207
 2026-06,Oklahoma,27
-2026-06,Oregon,783
+2026-06,Oregon,786
 2026-06,Pennsylvania,160
 2026-06,Rhode Island,22
 2026-06,South Carolina,5012
 2026-06,South Dakota,6
 2026-06,Tennessee,274
-2026-06,Texas,622
+2026-06,Texas,625
+2026-06,Unknown,2308
 2026-06,Utah,100
 2026-06,Vermont,6
-2026-06,Virginia,700
+2026-06,Virginia,708
 2026-06,Washington,206
 2026-06,West Virginia,16
 2026-06,Wisconsin,41
 2026-06,Wyoming,2
+2026-07,Alabama,288
+2026-07,Alaska,5
+2026-07,Arizona,150
+2026-07,Arkansas,17
+2026-07,California,1698
+2026-07,Colorado,253
+2026-07,Connecticut,49
+2026-07,Delaware,7
+2026-07,District of Columbia,93
+2026-07,Florida,393
+2026-07,Georgia,1324
+2026-07,Hawaii,22
+2026-07,Idaho,11
+2026-07,Illinois,534
+2026-07,Indiana,67
+2026-07,Iowa,643
+2026-07,Kansas,20
+2026-07,Kentucky,46
+2026-07,Louisiana,57
+2026-07,Maine,15
+2026-07,Maryland,123
+2026-07,Massachusetts,203
+2026-07,Michigan,117
+2026-07,Minnesota,71
+2026-07,Mississippi,32
+2026-07,Missouri,734
+2026-07,Montana,6
+2026-07,Nebraska,140
+2026-07,Nevada,60
+2026-07,New Hampshire,14
+2026-07,New Jersey,270
+2026-07,New Mexico,28
+2026-07,New York,1170
+2026-07,North Carolina,687
+2026-07,North Dakota,4
+2026-07,Ohio,324
+2026-07,Oklahoma,32
+2026-07,Oregon,1237
+2026-07,Pennsylvania,227
+2026-07,Rhode Island,17
+2026-07,South Carolina,77
+2026-07,South Dakota,3
+2026-07,Tennessee,597
+2026-07,Texas,1037
+2026-07,Unknown,769
+2026-07,Utah,129
+2026-07,Vermont,3
+2026-07,Virginia,1394
+2026-07,Washington,218
+2026-07,West Virginia,9
+2026-07,Wisconsin,58
+2026-07,Wyoming,9
