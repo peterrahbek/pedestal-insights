@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pedestal · Driftstatus</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/svg+xml" href="/assets/logo.svg">
+<script>
+  // Tom streng = samme oprindelse (når workeren selv serverer siden).
+  // Kopien på insights.pedestal.com skal pege på workerens adresse.
+  window.UPTIME_API = "https://pedestal-uptime.pr-927.workers.dev";
+</script>
+<style>
+  :root{
+    --bg1:#2a1414; --bg2:#3b1f1f; --bg3:#5a2a22;
+    --card:rgba(255,255,255,.055);
+    --card-line:rgba(255,255,255,.10);
+    --fg:#fff; --fg2:#ecdcd8; --fg3:#c9a8a2;
+    --ok:#5fd48a; --degraded:#f5c451; --down:#ff7a6e; --pending:#a89490;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;min-height:100%}
+  body{
+    background:linear-gradient(160deg,var(--bg1),var(--bg2) 45%,var(--bg3));
+    background-attachment:fixed;
+    color:var(--fg);
+    font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:940px;margin:0 auto;padding:28px 18px 72px}
+  header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:26px}
+  .wordmark{height:26px;width:auto;display:block}
+  .updated{color:var(--fg3);font-size:13px;text-align:right;font-variant-numeric:tabular-nums}
+
+  h1{font-size:15px;letter-spacing:.09em;text-transform:uppercase;color:var(--fg3);
+     font-weight:600;margin:34px 0 12px}
+  h1:first-of-type{margin-top:0}
+
+  /* Samlet banner */
+  .banner{display:flex;align-items:center;gap:14px;padding:20px 22px;border-radius:14px;
+    border:1px solid var(--card-line);background:var(--card);margin-bottom:8px}
+  .banner .dot{width:14px;height:14px;flex:0 0 14px}
+  .banner .headline{font-size:23px;font-weight:700;letter-spacing:.01em}
+  .banner .sub{color:var(--fg3);font-size:14px;margin-top:2px}
+  .banner.state-down{border-color:rgba(255,122,110,.5);background:rgba(255,122,110,.11)}
+  .banner.state-degraded{border-color:rgba(245,196,81,.42);background:rgba(245,196,81,.09)}
+
+  .stale{margin:10px 0 0;padding:12px 16px;border-radius:11px;font-size:14px;
+    border:1px solid rgba(245,196,81,.45);background:rgba(245,196,81,.11);color:#ffeec4}
+
+  /* Flowlamper */
+  .flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+  .lamp{border:1px solid var(--card-line);background:var(--card);border-radius:12px;
+    padding:14px 15px;text-align:left}
+  .lamp .top{display:flex;align-items:center;gap:8px}
+  .lamp .name{font-weight:650;font-size:15px}
+  .lamp .word{font-size:12.5px;color:var(--fg3);margin-top:5px}
+  .lamp.state-down{border-color:rgba(255,122,110,.45);background:rgba(255,122,110,.10)}
+  .lamp.state-degraded{border-color:rgba(245,196,81,.38);background:rgba(245,196,81,.075)}
+
+  /* Tilstandsmarkør: form OG farve, så den ikke kun kan aflæses af farve */
+  .dot{display:inline-block;width:11px;height:11px;flex:0 0 11px;border-radius:50%;
+    background:var(--pending);position:relative}
+  .dot.ok{background:var(--ok)}
+  .dot.degraded{background:var(--degraded);border-radius:2px;transform:rotate(45deg)}
+  .dot.down{background:var(--down);border-radius:2px}
+  .dot.pending{background:transparent;border:1.5px solid var(--pending)}
+
+  /* Lister */
+  .rows{border:1px solid var(--card-line);background:var(--card);border-radius:12px;overflow:hidden}
+  .row{display:flex;align-items:center;gap:11px;padding:11px 15px;
+    border-top:1px solid rgba(255,255,255,.055);width:100%;text-align:left;
+    background:none;border-left:0;border-right:0;border-bottom:0;color:inherit;font:inherit;cursor:pointer}
+  .row:first-child{border-top:0}
+  .row:hover{background:rgba(255,255,255,.035)}
+  .row .label{font-weight:550;flex:0 0 auto;min-width:118px}
+  .row .detail{color:var(--fg3);font-size:13.5px;flex:1;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .row .meta{color:var(--fg3);font-size:12.5px;font-variant-numeric:tabular-nums;flex:0 0 auto}
+  .row[aria-expanded="true"] .detail{white-space:normal}
+  .expand{padding:0 15px 13px 41px;color:var(--fg3);font-size:13px;display:none}
+  .expand.open{display:block}
+  .expand dl{display:grid;grid-template-columns:auto 1fr;gap:3px 14px;margin:0}
+  .expand dt{color:var(--fg3)}
+  .expand dd{margin:0;color:var(--fg2)}
+
+  /* Markedsgitter */
+  .markets{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:8px}
+  .market{border:1px solid var(--card-line);background:var(--card);border-radius:10px;
+    padding:11px 12px;display:flex;align-items:center;gap:8px;font-size:14px;font-weight:550}
+  /* "EU (.com)" er det længste navn og må ikke brække midt i parentesen */
+  .market span{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+  /* 90-dages bjælker */
+  .bars{border:1px solid var(--card-line);background:var(--card);border-radius:12px;padding:15px}
+  .barrow{margin-bottom:14px}
+  .barrow:last-child{margin-bottom:0}
+  .barrow .head{display:flex;justify-content:space-between;font-size:13.5px;margin-bottom:6px}
+  .barrow .head b{font-weight:600}
+  .barrow .head span{color:var(--fg3);font-variant-numeric:tabular-nums}
+  .track{display:flex;gap:1.5px;height:26px;align-items:stretch}
+  .track i{flex:1;min-width:2px;border-radius:1.5px;background:rgba(255,255,255,.10)}
+  .track i.ok{background:var(--ok)}
+  .track i.degraded{background:var(--degraded)}
+  .track i.down{background:var(--down)}
+
+  .links{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .links a{color:var(--fg2);font-size:13px;text-decoration:none;border:1px solid var(--card-line);
+    background:var(--card);border-radius:999px;padding:6px 13px}
+  .links a:hover{color:#fff;border-color:rgba(255,255,255,.28)}
+  footer{margin-top:34px;color:var(--fg3);font-size:12.5px;line-height:1.7}
+  .err{padding:16px;border-radius:12px;border:1px solid rgba(255,122,110,.45);
+    background:rgba(255,122,110,.10);color:#ffd9d4}
+  @media (max-width:560px){
+    .wrap{padding:20px 13px 56px}
+    .banner .headline{font-size:20px}
+    .row .label{min-width:92px;font-size:14px}
+    .row .detail{font-size:12.5px}
+  }
+  @media (prefers-reduced-motion:no-preference){
+    .lamp,.row,.market{transition:background-color .18s ease,border-color .18s ease}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <img class="wordmark" src="/assets/wordmark-white.svg" alt="Pedestal">
+    <div class="updated" id="updated">henter …</div>
+  </header>
+
+  <div id="app">
+    <div class="banner"><span class="dot pending"></span><div><div class="headline">Henter status …</div></div></div>
+  </div>
+
+  <footer>
+    Måler kundens vej gennem købet hvert 2. minut: forside, produkt, kurv, checkout, fragt og betaling.
+    Alarmer går til <b>#uptime</b> i Slack ved tilstandsskift, aldrig som gentagen støj.<br>
+    Fragt har en fallback-rate, så et rødt fragtlys betyder “fragtprisen er ikke beregnet”, ikke “kunden kan ikke købe”.
+  </footer>
+</div>
+
+<script>
+(() => {
+  const API = (window.UPTIME_API || "").replace(/\/$/, "");
+  const STATE_WORD = { ok: "Normal", degraded: "Forstyrret", down: "Nede", pending: "Ikke målt" };
+  const app = document.getElementById("app");
+  const updatedEl = document.getElementById("updated");
+  const open = new Set();          // hvilke rækker brugeren har foldet ud
+  let history = null;
+
+  const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) =>
+    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+  const dot = (state) => `<span class="dot ${state}" role="img" aria-label="${STATE_WORD[state] || state}"></span>`;
+
+  function ago(sec) {
+    if (!sec) return "aldrig";
+    const d = Math.max(0, Math.floor(Date.now() / 1000) - sec);
+    if (d < 60) return d + " s";
+    if (d < 3600) return Math.floor(d / 60) + " min";
+    if (d < 86400) return Math.floor(d / 3600) + " t " + Math.floor((d % 3600) / 60) + " min";
+    return Math.floor(d / 86400) + " d";
+  }
+  const clock = (sec) => new Date(sec * 1000).toLocaleTimeString("da-DK",
+    { hour: "2-digit", minute: "2-digit", timeZone: "Europe/Copenhagen" });
+  const day = (sec) => new Date(sec * 1000).toLocaleDateString("da-DK",
+    { day: "numeric", month: "short", timeZone: "Europe/Copenhagen" });
+  // Oppetid rundes NED. 99,97 % er ikke 100 %, og en statusside der påstår en
+  // fejlfri periode den ikke har haft, er værre end ingen statusside.
+  const pct = (v) => {
+    if (v === null || v === undefined) return "–";
+    if (v >= 100) return "100 %";
+    return (Math.floor(v * 100) / 100).toFixed(2) + " %";
+  };
+
+  function rowHtml(c) {
+    const isOpen = open.has(c.id);
+    return `
+      <button class="row" data-id="${esc(c.id)}" aria-expanded="${isOpen}">
+        ${dot(c.state)}
+        <span class="label">${esc(c.label)}</span>
+        <span class="detail">${esc(c.detail)}</span>
+        <span class="meta">${c.state === "ok" || c.state === "pending" || !c.since ? "" : ago(c.since) + " siden"}</span>
+      </button>
+      <div class="expand ${isOpen ? "open" : ""}" data-for="${esc(c.id)}">
+        <dl>
+          <dt>Tilstand</dt><dd>${c.since
+            ? `${STATE_WORD[c.state] || c.state} siden ${clock(c.since)} (${ago(c.since)} siden)`
+            : "Ikke målt endnu"}</dd>
+          <dt>Svartid</dt><dd>${c.latencyMs == null ? "–" : c.latencyMs + " ms"}</dd>
+          <dt>Oppetid</dt><dd>${pct(c.uptime24h)} seneste døgn · ${pct(c.uptime30d)} seneste 30 dage</dd>
+          <dt>Detalje</dt><dd>${esc(c.detail)}</dd>
+        </dl>
+      </div>`;
+  }
+
+  function barsHtml() {
+    if (!history || !history.flows) return "";
+    const rows = history.flows.filter((f) => f.days.length).map((f) => {
+      const days = f.days.slice(-90);
+      const cells = days.map((d) => {
+        const cls = d.uptime === null ? "" : d.uptime >= 99.9 ? "ok" : d.uptime >= 95 ? "degraded" : "down";
+        const t = d.uptime === null ? "ingen måling" : d.uptime.toFixed(2) + " % oppe";
+        return `<i class="${cls}" title="${d.day}: ${t}"></i>`;
+      }).join("");
+      // Vejet efter antal målinger. Et gennemsnit af daglige procenter ville
+      // lade en dag med to målinger tælle som en dag med syv hundrede.
+      const measured = days.filter((d) => d.uptime !== null);
+      const ok = measured.reduce((a, d) => a + (d.ok ?? 0), 0);
+      const bad = measured.reduce((a, d) => a + (d.bad ?? 0), 0);
+      const avg = ok + bad > 0 ? (ok / (ok + bad)) * 100 : null;
+      return `<div class="barrow">
+          <div class="head"><b>${esc(f.label)}</b><span>${pct(avg)} · ${measured.length} ${measured.length === 1 ? "dag" : "dage"}</span></div>
+          <div class="track">${cells}</div>
+        </div>`;
+    }).join("");
+    return rows ? `<h1>Historik</h1><div class="bars">${rows}</div>` : "";
+  }
+
+  function render(s) {
+    const active = document.activeElement;
+    const focused = active && active.classList && active.classList.contains("row")
+      ? active.dataset.id : null;
+    const stale = (Date.now() / 1000 - s.generated) > s.staleAfterSec;
+    const flow = s.flow.map((f) => `
+      <div class="lamp state-${f.state}">
+        <div class="top">${dot(f.state)}<span class="name">${esc(f.label)}</span></div>
+        <div class="word">${STATE_WORD[f.state] || f.state}</div>
+      </div>`).join("");
+
+    const byId = Object.fromEntries(
+      s.groups.flatMap((g) => g.checks).map((c) => [c.id, c]));
+    // Kun butikstjekkene tæller i markedsfliserne. Fragtraterne bærer også en
+    // markedskode, men et manglende fragtopslag betyder ikke at markedet er
+    // nede — fallback-raten bærer købet — og en rød flise ville modsige både
+    // fragtlampen og doktrinen.
+    const storeChecks = s.groups.flatMap((g) => g.checks).filter((c) => c.id.startsWith("store."));
+    const markets = [...new Set(storeChecks.map((c) => c.market).filter(Boolean))];
+    const marketHtml = markets.map((m) => {
+      const mine = storeChecks.filter((c) => c.market === m);
+      const worst = mine.some((c) => c.state === "down") ? "down"
+        : mine.some((c) => c.state === "degraded") ? "degraded"
+        : mine.every((c) => c.state === "pending") ? "pending" : "ok";
+      const name = (byId[`store.${m}.front`]?.label || m).replace(" forside", "");
+      return `<div class="market">${dot(worst)}<span>${esc(name)}</span></div>`;
+    }).join("");
+
+    const group = (id, title) => {
+      const g = s.groups.find((x) => x.id === id);
+      if (!g || !g.checks.length) return "";
+      return `<h1>${esc(title)}</h1><div class="rows">${g.checks.map(rowHtml).join("")}</div>`;
+    };
+
+    const jobs = s.jobs.length ? `<h1>Faste kørsler</h1><div class="rows">${
+      s.jobs.map((j) => `<div class="row" style="cursor:default">
+          ${dot(j.lastPing === null ? "pending" : j.overdue ? "down" : "ok")}
+          <span class="label">${esc(j.label)}</span>
+          <span class="detail">${esc(j.detail)}</span>
+        </div>`).join("")}</div>` : "";
+
+    const inc = s.incidents.length ? `<h1>Seneste hændelser</h1><div class="rows">${
+      s.incidents.map((i) => `<div class="row" style="cursor:default">
+          ${dot(i.ended ? "ok" : i.worst)}
+          <span class="label">${day(i.started)} ${clock(i.started)}</span>
+          <span class="detail">${esc(i.label)} — ${esc(i.detail)}</span>
+          <span class="meta">${i.ended ? i.durationText : "igangværende"}</span>
+        </div>`).join("")}</div>`
+      : `<h1>Seneste hændelser</h1><div class="rows"><div class="row" style="cursor:default">
+           ${dot("ok")}<span class="detail">Ingen hændelser registreret endnu.</span></div></div>`;
+
+    app.innerHTML = `
+      <div class="banner state-${s.overall.state}">
+        ${dot(s.overall.state)}
+        <div>
+          <div class="headline">${esc(s.overall.headline)}</div>
+          <div class="sub">Målt ${ago(s.generated)} siden · alle tider er dansk tid</div>
+        </div>
+      </div>
+      ${stale ? `<div class="stale">Overvågeren har ikke rapporteret siden ${clock(s.generated)}.
+        Tallene herunder kan være forældede — vagtlaget i #uptime alarmerer selvstændigt.</div>` : ""}
+      <h1>Købsflow</h1>
+      <div class="flow">${flow}</div>
+      ${group("flow", "Betaling og fragt")}
+      <h1>Markeder</h1>
+      <div class="markets">${marketHtml}</div>
+      ${group("stores", "Butikker i detaljer")}
+      ${group("vendors", "Leverandører")}
+      ${group("own", "Egne systemer")}
+      ${jobs}
+      ${inc}
+      ${barsHtml()}
+      <div class="links">${s.links.map((l) =>
+        `<a href="${esc(l.url)}" target="_blank" rel="noopener noreferrer">${esc(l.label)} ↗</a>`).join("")}</div>`;
+
+    updatedEl.textContent = "opdateret " + clock(s.generated);
+
+    // Siden tegnes forfra hvert minut. Uden dette ville tastaturfokus og en
+    // skærmlæsers plads på siden ryge hvert 60. sekund, og siden ville være
+    // ubrugelig for enhver der ikke bruger mus.
+    if (focused) {
+      const again = app.querySelector(`.row[data-id="${CSS.escape(focused)}"]`);
+      if (again) again.focus();
+    }
+
+    app.querySelectorAll(".row[data-id]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const id = btn.dataset.id;
+        open.has(id) ? open.delete(id) : open.add(id);
+        btn.setAttribute("aria-expanded", open.has(id));
+        const panel = app.querySelector(`.expand[data-for="${CSS.escape(id)}"]`);
+        if (panel) panel.classList.toggle("open", open.has(id));
+      });
+    });
+  }
+
+  async function tick() {
+    try {
+      const res = await fetch(`${API}/status.json?t=${Math.floor(Date.now() / 30000)}`);
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      render(await res.json());
+    } catch (e) {
+      app.innerHTML = `<div class="err"><b>Kan ikke hente status.</b><br>
+        ${esc(e.message)}. Enten er overvågeren nede, eller også peger denne side
+        det forkerte sted hen (window.UPTIME_API).</div>`;
+      updatedEl.textContent = "ingen forbindelse";
+    }
+  }
+
+  async function loadHistory() {
+    try {
+      const res = await fetch(`${API}/history.json?days=90`);
+      if (res.ok) history = await res.json();
+    } catch { /* historik er pynt, ikke drift */ }
+  }
+
+  loadHistory().then(tick);
+  setInterval(tick, 60_000);
+  setInterval(loadHistory, 3_600_000);
+  document.addEventListener("visibilitychange", () => { if (!document.hidden) tick(); });
+})();
+</script>
+</body>
+</html>
